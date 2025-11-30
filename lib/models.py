@@ -18,6 +18,11 @@ class Company(Base):
 
     freebies = relationship("Freebie", back_populates="company")
 
+    # Relationship that shows which dev recived a freebie from the company
+    @property
+    def devs(self):
+        return list({freebie.dev for freebie in self.freebies})
+
 
     def __repr__(self):
         return f'<Company {self.name}>'
@@ -30,6 +35,11 @@ class Dev(Base):
     
     freebies = relationship("Freebie", back_populates="dev")
 
+    # Relationship attribute between devs and companies that gave them freebies
+    @property
+    def companies(self):
+        return list({freebie.company for freebie in self.freebies})
+
     def __repr__(self):
         return f'<Dev {self.name}>'
     
@@ -39,10 +49,12 @@ class Freebie(Base):
     id = Column(Integer(), primary_key=True)
     item_name = Column(String())
     value = Column(Integer())
-    Company_id = Column(Integer, ForeignKey('companies.id'))
+    company_id = Column(Integer, ForeignKey('companies.id'))
+
     dev_id = Column(Integer, ForeignKey('devs.id'))
 
     dev = relationship("Dev", back_populates="freebies")
     company = relationship("Company", back_populates="freebies")
 
-    
+    def __repr__(self):
+        return f"<Freebie {self.item_name} from {self.company.name} to {self.dev.name}>"    
