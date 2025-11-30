@@ -49,6 +49,13 @@ freebie3 = Freebie(
     dev=dan
 )
 
+freebie4 = Freebie(
+    item_name="Gaming Set",
+    value=300,
+    company=openAI,
+    dev=dan
+)
+
 # Database connection
 
 engine = create_engine('sqlite:///freebies.db')  
@@ -59,7 +66,7 @@ session = Session()
 session.add_all([
     facebook, openAI, andela,
     dan, newton, bill,
-    freebie1, freebie2, freebie3
+    freebie1, freebie2, freebie3, freebie4
 ])
 
 session.commit()
