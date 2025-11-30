@@ -8,10 +8,6 @@ from sqlalchemy.orm import sessionmaker
 
 from models import Company, Dev, Freebie 
 
-
-
-
-
 # Create Companies
 
 facebook = Company(name="Facebook", founding_year=2001)
